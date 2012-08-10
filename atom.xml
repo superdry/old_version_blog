@@ -4,7 +4,7 @@
   <title><![CDATA[superdry.github.com]]></title>
   <link href="http://superdry.github.com/atom.xml" rel="self"/>
   <link href="http://superdry.github.com/"/>
-  <updated>2012-08-10T15:08:40+09:00</updated>
+  <updated>2012-08-10T15:09:42+09:00</updated>
   <id>http://superdry.github.com/</id>
   <author>
     <name><![CDATA[Superdry]]></name>
@@ -12,14 +12,5 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[てすと]]></title>
-    <link href="http://superdry.github.com/blog/2012/08/10/tesuto/"/>
-    <updated>2012-08-10T15:07:00+09:00</updated>
-    <id>http://superdry.github.com/blog/2012/08/10/tesuto</id>
-    <content type="html"><![CDATA[<p>工事中です</p>
-]]></content>
-  </entry>
   
 </feed>
