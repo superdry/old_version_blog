@@ -4,7 +4,7 @@
   <title><![CDATA[superdry.github.com]]></title>
   <link href="http://superdry.github.com/atom.xml" rel="self"/>
   <link href="http://superdry.github.com/"/>
-  <updated>2012-08-12T22:33:01+09:00</updated>
+  <updated>2012-08-12T22:44:24+09:00</updated>
   <id>http://superdry.github.com/</id>
   <author>
     <name><![CDATA[Superdry]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Tab APIを使ったAndroidサンプルアプリ(2)]]></title>
+    <link href="http://superdry.github.com/blog/2012/08/12/tab-api-sample-apps-for-android-2/"/>
+    <updated>2012-08-12T22:35:00+09:00</updated>
+    <id>http://superdry.github.com/blog/2012/08/12/tab-api-sample-apps-for-android-2</id>
+    <content type="html"><![CDATA[<p><a href="http://superdry.github.com/blog/2012/08/12/tab-api-sample-apps-for-android/">前回のエントリ</a>の続きです。今回は<a href="https://github.com/tonchidot/tab-samples/tree/master/oauth2/android">Androidサンプルアプリケーション</a>の詳細について説明します。</p>
+
+<h2>OAuthの認可コードの取得</h2>
+
+<p>tabの認証系・更新系APIを使うためにはアクセストークンが必要ですが、その前にまず、アクセストークンを取得するための認可コードの発行が必要です。これはGetAccessTokenActivity.javaのgetAuthorizationCode内で実装しています。</p>
+
+<p>{% gist 3329873 GetAccessTokenActivity1.java %}</p>
+
+<p>認可コードの取得のUriを組み立て（L9〜L15）、Uriをブラウザに対し暗黙的インテントを投げています（L20〜22）。ブラウザに表示されるtabの認可画面で許可すると、ブラウザからコールバックURL宛にインテントを返します。これをGetAccessTokenActivity.javaで受け取り、GetAccessTokenActivity.javaのgetAccessToken内で認可コードを取得しています。</p>
+
+<p>{% gist 3329873 GetAccessTokenActivity2.java %}</p>
+
+<p>ここで、認可コードを取得し（L13）、アクセストークンの取得処理（L14〜L15）が実行されます。</p>
+
+<h2>アクセストークンの取得</h2>
+
+<p>アクセストークンの取得は、GetAccessTokenTask.javaのdoInBackground内で実装しています。</p>
+
+<p>{% gist 3329873 GetAccessTokenTask.java %}</p>
+
+<p>OAuthClientRequestを組み立て（L7〜L13）、アクセストークンを再取得（L16）しています。</p>
+
+<p>なお、このサンプルアプリケーションでは取得したアクセストークンはSharedPreferencesに保存しています（L24〜L31）。セキュリティが気になる人はここでトークンを暗号化して保存するとなおよいでしょう。SharedPreferencesに保存されたアクセストークンをつかって、tabの認証系・更新系APIにアクセスすることができます。</p>
+
+<h2>リフレッシュトークンによるアクセストークンの再取得</h2>
+
+<p>アクセストークンには期限があるため、期限切れの場合はAPIアクセスのタイミングで401（Unauthorized）を返します。その場合は、以前アクセストークンを取得したときについてきたリフレッシュトークンを使い、アクセストークンを再取得する必要があります。</p>
+
+<p>サンプルアプリケーションでは、RefreshTokenTask.javaのdoInBackground内で実装しています。</p>
+
+<p>{% gist 3329873 RefreshTokenTask.java %}</p>
+
+<p>アクセストークンと同じように、OAuthClientRequestを組み立て（L7〜L13）、アクセストークンを再取得（L16）しています。違うのはOAuthClientRequestを組み立て方のみです。取得した情報は、これも同様に、SharedPreferencesに上書き保存しています（L24〜L31）。</p>
+
+<h2>まとめ</h2>
+
+<p>以上で、tab APIを使ったAndroidサンプルアプリケーションの説明は終わります。現時点で、tab APIを使っているアプリは<a href="http://jyukon.blogspot.jp/2012/08/tab-api_7.html">こちら</a>で紹介しています。今後もいろいろなAPIを充実させていく予定ですので、ぜひ使ってみてください！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[tab APIを使ったAndroidサンプルアプリ(1)]]></title>

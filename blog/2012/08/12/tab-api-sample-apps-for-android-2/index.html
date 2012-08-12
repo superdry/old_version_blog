@@ -1,0 +1,187 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Tab APIを使ったAndroidサンプルアプリ(2) - superdry.github.com</title>
+	<meta name="author" content="Superdry">
+
+	
+	<meta name="description" content="前回のエントリの続きです。今回はAndroidサンプルアプリケーションの詳細について説明します。 OAuthの認可コードの取得 tabの認証系・更新系APIを使うためにはアクセストークンが必要ですが、その前にまず、アクセストークンを取得するための認可コードの発行が必要です。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="superdry.github.com" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">superdry.github.com</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:superdry.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:superdry.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h1 class="title">Tab APIを使ったAndroidサンプルアプリ(2)</h1>
+	<div class="entry-content"><p><a href="http://superdry.github.com/blog/2012/08/12/tab-api-sample-apps-for-android/">前回のエントリ</a>の続きです。今回は<a href="https://github.com/tonchidot/tab-samples/tree/master/oauth2/android">Androidサンプルアプリケーション</a>の詳細について説明します。</p>
+
+<h2>OAuthの認可コードの取得</h2>
+
+<p>tabの認証系・更新系APIを使うためにはアクセストークンが必要ですが、その前にまず、アクセストークンを取得するための認可コードの発行が必要です。これはGetAccessTokenActivity.javaのgetAuthorizationCode内で実装しています。</p>
+
+<p>{% gist 3329873 GetAccessTokenActivity1.java %}</p>
+
+<p>認可コードの取得のUriを組み立て（L9〜L15）、Uriをブラウザに対し暗黙的インテントを投げています（L20〜22）。ブラウザに表示されるtabの認可画面で許可すると、ブラウザからコールバックURL宛にインテントを返します。これをGetAccessTokenActivity.javaで受け取り、GetAccessTokenActivity.javaのgetAccessToken内で認可コードを取得しています。</p>
+
+<p>{% gist 3329873 GetAccessTokenActivity2.java %}</p>
+
+<p>ここで、認可コードを取得し（L13）、アクセストークンの取得処理（L14〜L15）が実行されます。</p>
+
+<h2>アクセストークンの取得</h2>
+
+<p>アクセストークンの取得は、GetAccessTokenTask.javaのdoInBackground内で実装しています。</p>
+
+<p>{% gist 3329873 GetAccessTokenTask.java %}</p>
+
+<p>OAuthClientRequestを組み立て（L7〜L13）、アクセストークンを再取得（L16）しています。</p>
+
+<p>なお、このサンプルアプリケーションでは取得したアクセストークンはSharedPreferencesに保存しています（L24〜L31）。セキュリティが気になる人はここでトークンを暗号化して保存するとなおよいでしょう。SharedPreferencesに保存されたアクセストークンをつかって、tabの認証系・更新系APIにアクセスすることができます。</p>
+
+<h2>リフレッシュトークンによるアクセストークンの再取得</h2>
+
+<p>アクセストークンには期限があるため、期限切れの場合はAPIアクセスのタイミングで401（Unauthorized）を返します。その場合は、以前アクセストークンを取得したときについてきたリフレッシュトークンを使い、アクセストークンを再取得する必要があります。</p>
+
+<p>サンプルアプリケーションでは、RefreshTokenTask.javaのdoInBackground内で実装しています。</p>
+
+<p>{% gist 3329873 RefreshTokenTask.java %}</p>
+
+<p>アクセストークンと同じように、OAuthClientRequestを組み立て（L7〜L13）、アクセストークンを再取得（L16）しています。違うのはOAuthClientRequestを組み立て方のみです。取得した情報は、これも同様に、SharedPreferencesに上書き保存しています（L24〜L31）。</p>
+
+<h2>まとめ</h2>
+
+<p>以上で、tab APIを使ったAndroidサンプルアプリケーションの説明は終わります。現時点で、tab APIを使っているアプリは<a href="http://jyukon.blogspot.jp/2012/08/tab-api_7.html">こちら</a>で紹介しています。今後もいろいろなAPIを充実させていく予定ですので、ぜひ使ってみてください！</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-12T22:35:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+</div>
+	<footer id="footer" class="inner"><script type="text/javascript">
+  var gists = document.getElementsByClassName('gist');
+  for (var i = 0; i < gists.length; i++) {
+    var lines = gists[i].getElementsByClassName('line');
+      for (var j = 0; j < lines.length; j++) {
+        var div = document.createElement('div');
+        div.innerHTML = j + 1;
+        div.style.cssFloat = 'left';
+        div.style.width = '30px';
+        div.style.fontWeight = 'bold';
+        div.style.color = 'grey';
+        div.style.MozUserSelect = 'none';
+        div.style.webkitUserSelect = 'none';
+        div.setAttribute('unselectable', 'on');
+        lines[j].insertBefore(div, lines[j].childNodes[0]);
+      }
+  }
+</script>
+Copyright &copy; 2012
+
+    Superdry
+
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
