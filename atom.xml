@@ -4,7 +4,7 @@
   <title><![CDATA[superdry.github.com]]></title>
   <link href="http://superdry.github.com/atom.xml" rel="self"/>
   <link href="http://superdry.github.com/"/>
-  <updated>2012-08-12T21:11:15+09:00</updated>
+  <updated>2012-08-12T21:35:51+09:00</updated>
   <id>http://superdry.github.com/</id>
   <author>
     <name><![CDATA[Superdry]]></name>
@@ -36,6 +36,22 @@
 
 <blockquote><p>&lt;&lt;ダウンロードフォルダ>>/oauth/android/SampleApp
 を指定します。</p></blockquote>
+
+<p>{% include_img  /images/post/1.png %}</p>
+
+<p>最後に、OAuthのライブラリをダウンロードします。このサンプルアプリケーションでは、leelooのライブラリを使用します。</p>
+
+<p>leelooのサイトからOAuthのライブラリをダウンロードします。今回使用するjarファイルは以下の4つになります。</p>
+
+<ul>
+<li>jettison-1.2.jar</li>
+<li>oauth2-client.jar</li>
+<li>oauth2-common-0.1.jar</li>
+<li>slf4j-api.1.6.1.jar</li>
+</ul>
+
+
+<p>この4つのjarファイルを入手したら、libsフォルダの下にこれらjarファイルをコピーします。</p>
 ]]></content>
   </entry>
   
