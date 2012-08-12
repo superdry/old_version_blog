@@ -4,7 +4,7 @@
   <title><![CDATA[superdry.github.com]]></title>
   <link href="http://superdry.github.com/atom.xml" rel="self"/>
   <link href="http://superdry.github.com/"/>
-  <updated>2012-08-12T21:43:47+09:00</updated>
+  <updated>2012-08-12T21:52:20+09:00</updated>
   <id>http://superdry.github.com/</id>
   <author>
     <name><![CDATA[Superdry]]></name>
@@ -34,10 +34,11 @@
 
 <p>また、Android用のサンプルアプリケーションをGithubで公開しています。これをダウンロードし、Eclipseでプロジェクトフォルダをインポートしてください。具体的には、Eclipseのメニューバーより、[File] - [New] - [Other] - [Android Project from Existing Code] を選択し、</p>
 
-<blockquote><p>&lt;&lt;ダウンロードフォルダ>>/oauth/android/SampleApp
-を指定します。</p></blockquote>
+<blockquote><p>&lt;&lt;ダウンロードフォルダ>>/oauth/android/SampleApp</p></blockquote>
 
-<p><img src="http://localhost:4000/images/post/20120812/1.png"></p>
+<p>を指定します。</p>
+
+<p>{% img http://superdry.github.com/images/post/20120812/1.png %}</p>
 
 <p>最後に、OAuthのライブラリをダウンロードします。このサンプルアプリケーションでは、leelooのライブラリを使用します。</p>
 
@@ -52,6 +53,36 @@
 
 
 <p>この4つのjarファイルを入手したら、libsフォルダの下にこれらjarファイルをコピーします。</p>
+
+<h3>サンプルアプリケーションのカスタマイズ</h3>
+
+<p>まずは、CommonConst.javaに、入手したクライアントID等を埋め込みます。</p>
+
+<p>{% gist 3329873 CommonConst.java</p>
+
+<p>L19〜L21にそれぞれ入手したクライアントID、クライアントシークレット、コールバックURIに置き換えます。コールバックURIはデフォルトのままだと&#8221;tab://callback/oauth2&#8221;になります。もしここで独自のURIスキーマを設定した場合は、AndroidManifest.xmlも修正します。</p>
+
+<p>{% gist 3329873 AndroidManifest.xml %}</p>
+
+<p>L43行目のIntent filterのandroid:schemaの設定を変更します。</p>
+
+<p>これでアプリケーションのカスタマイズは終了です。ビルドののちエミュレータまたは実機で起動してください。</p>
+
+<h2>STEP3 アプリケーションを起動する</h2>
+
+<p>アプリケーションを起動すると、OAuth認証というボタンが表示されます。</p>
+
+<p>{% img http://superdry.github.com/images/post/20120812/2.png %}</p>
+
+<p>ボタンをクリックすると、ブラウザでtabの認可画面が開きます。</p>
+
+<p>{% img http://superdry.github.com/images/post/20120812/3.png %}</p>
+
+<p>「許可する」をタップします。すると、アプリに戻り、認証コードの取得、アクセストークンの取得処理が始まり、認証後プロフィール情報が取得できます。（このサンプルアプリケーションでは<a href="http://tonchidot.github.com/tab-api-docs/api/user/get_my_information.html">ログインしているユーザ自身の情報を取得</a>します。）</p>
+
+<p>{% img http://superdry.github.com/images/post/20120812/4.png %}</p>
+
+<p>次回は、サンプルアプリケーションの認証の実装部分についてご紹介します。</p>
 ]]></content>
   </entry>
   
