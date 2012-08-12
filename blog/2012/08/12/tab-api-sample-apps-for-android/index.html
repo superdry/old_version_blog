@@ -252,25 +252,24 @@ public final class CommonConst {
 
 
 </div>
-	<footer id="footer" class="inner">pt type="text/javascript">
+	<footer id="footer" class="inner"><script type="text/javascript">
   var gists = document.getElementsByClassName('gist');
-    for (var i = 0; i < gists.length; i++) {
-        var lines = gists[i].getElementsByClassName('line');
-            for (var j = 0; j < lines.length; j++) {
-                  var div = document.createElement('div');
-                        div.innerHTML = j + 1;
-                              div.style.cssFloat = 'left';
-                                    div.style.width = '30px';
-                                          div.style.fontWeight = 'bold';
-                                                div.style.color = 'grey';
-                                                      div.style.MozUserSelect = 'none';
-                                                            div.style.webkitUserSelect = 'none';
-                                                                  div.setAttribute('unselectable', 'on');
-                                                                        lines[j].insertBefore(div, lines[j].childNodes[0]);
-                                                                            }
-                                                                              }
-                                                                              </script>
-                                                                              1
+  for (var i = 0; i < gists.length; i++) {
+    var lines = gists[i].getElementsByClassName('line');
+      for (var j = 0; j < lines.length; j++) {
+        var div = document.createElement('div');
+        div.innerHTML = j + 1;
+        div.style.cssFloat = 'left';
+        div.style.width = '30px';
+        div.style.fontWeight = 'bold';
+        div.style.color = 'grey';
+        div.style.MozUserSelect = 'none';
+        div.style.webkitUserSelect = 'none';
+        div.setAttribute('unselectable', 'on');
+        lines[j].insertBefore(div, lines[j].childNodes[0]);
+      }
+  }
+</script>
 Copyright &copy; 2012
 
     Superdry
