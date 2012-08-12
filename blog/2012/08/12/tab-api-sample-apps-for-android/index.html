@@ -91,7 +91,7 @@
 
 <p>を指定します。</p>
 
-<p>{% img http://superdry.github.com/images/post/20120812/1.png %}</p>
+<p><img src="http://superdry.github.com/images/post/20120812/1.png"></p>
 
 <p>最後に、OAuthのライブラリをダウンロードします。このサンプルアプリケーションでは、leelooのライブラリを使用します。</p>
 
@@ -111,11 +111,89 @@
 
 <p>まずは、CommonConst.javaに、入手したクライアントID等を埋め込みます。</p>
 
-<p>{% gist 3329873 CommonConst.java</p>
+<div><script src='https://gist.github.com/3329873.js?file=CommonConst.java'></script>
+<noscript><pre><code>package com.tonchidot.tab.sample.oauth;
+
+import android.os.Build;
+
+public final class CommonConst {
+
+    public static final String TAG = &quot;tabsamle&quot;;
+
+    public static final String PREF_NAME = &quot;tab&quot;;
+    public static final String PREF_ACCESS_TOKEN = &quot;access_token&quot;;
+    public static final String PREF_REFRESH_TOKEN = &quot;refresh_token&quot;;
+    public static final String PREF_EXPIRES_IN = &quot;expires_in&quot;;
+    public static final String PREF_TOKEN_TYPE = &quot;token_type&quot;;
+
+    public final static String AUTHORIZATION_LOCATION = &quot;https://tab.do/oauth2/authorize&quot;;
+    public final static String TOKEN_LOCATION = &quot;https://tab.do/api/1/oauth2/token&quot;;
+    public static final String ACCESS_URI = &quot;https://tab.do/api/1/users/me.json&quot;;
+
+    public final static String CLIENT_ID = &quot;&lt;&lt;Your Client ID&gt;&gt;&quot;;
+    public final static String CLIENT_SECRET = &quot;&lt;&lt;Your Client Secret&gt;&gt;&quot;;
+    public final static String REDIRECT_URI = &quot;&lt;&lt;Your Redirect Uri&gt;&gt;&quot;;
+
+    public static boolean isHoneycomb() {
+        return Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB;
+    }
+
+}
+</code></pre></noscript></div>
+
 
 <p>L19〜L21にそれぞれ入手したクライアントID、クライアントシークレット、コールバックURIに置き換えます。コールバックURIはデフォルトのままだと&#8221;tab://callback/oauth2&#8221;になります。もしここで独自のURIスキーマを設定した場合は、AndroidManifest.xmlも修正します。</p>
 
-<p>{% gist 3329873 AndroidManifest.xml %}</p>
+<div><script src='https://gist.github.com/3329873.js?file=AndroidManifest.xml'></script>
+<noscript><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;com.tonchidot.tab.sample.oauth&quot;
+    android:versionCode=&quot;1&quot;
+    android:versionName=&quot;1.0&quot; &gt;
+
+    &lt;uses-sdk
+        android:minSdkVersion=&quot;10&quot;
+        android:targetSdkVersion=&quot;15&quot; /&gt;
+
+    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+
+    &lt;application
+        android:icon=&quot;@drawable/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:theme=&quot;@style/AppTheme&quot; &gt;
+        &lt;activity
+            android:name=&quot;.MainActivity&quot;
+            android:label=&quot;@string/title_activity_main&quot;
+            android:screenOrientation=&quot;portrait&quot; &gt;
+            &lt;meta-data
+                android:name=&quot;android.support.PARENT_ACTIVITY&quot;
+                android:value=&quot;android.support.v4.app.FragmentActivity&quot; /&gt;
+
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+        &lt;activity
+            android:name=&quot;.GetAccessTokenActivity&quot;
+            android:exported=&quot;true&quot;
+            android:label=&quot;@string/title_activity_get_accesstoken&quot;
+            android:screenOrientation=&quot;portrait&quot; &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+                &lt;category android:name=&quot;android.intent.category.BROWSABLE&quot; /&gt;
+
+                &lt;data
+                    android:host=&quot;callback&quot;
+                    android:scheme=&quot;tab&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre></noscript></div>
+
 
 <p>L43行目のIntent filterのandroid:schemaの設定を変更します。</p>
 
@@ -125,15 +203,15 @@
 
 <p>アプリケーションを起動すると、OAuth認証というボタンが表示されます。</p>
 
-<p>{% img http://superdry.github.com/images/post/20120812/2.png %}</p>
+<p><img src="http://superdry.github.com/images/post/20120812/2.png"></p>
 
 <p>ボタンをクリックすると、ブラウザでtabの認可画面が開きます。</p>
 
-<p>{% img http://superdry.github.com/images/post/20120812/3.png %}</p>
+<p><img src="http://superdry.github.com/images/post/20120812/3.png"></p>
 
 <p>「許可する」をタップします。すると、アプリに戻り、認証コードの取得、アクセストークンの取得処理が始まり、認証後プロフィール情報が取得できます。（このサンプルアプリケーションでは<a href="http://tonchidot.github.com/tab-api-docs/api/user/get_my_information.html">ログインしているユーザ自身の情報を取得</a>します。）</p>
 
-<p>{% img http://superdry.github.com/images/post/20120812/4.png %}</p>
+<p><img src="http://superdry.github.com/images/post/20120812/4.png"></p>
 
 <p>次回は、サンプルアプリケーションの認証の実装部分についてご紹介します。</p>
 </div>
