@@ -4,7 +4,7 @@
   <title><![CDATA[superdry.github.com]]></title>
   <link href="http://superdry.github.com/atom.xml" rel="self"/>
   <link href="http://superdry.github.com/"/>
-  <updated>2012-08-12T21:37:17+09:00</updated>
+  <updated>2012-08-12T21:39:49+09:00</updated>
   <id>http://superdry.github.com/</id>
   <author>
     <name><![CDATA[Superdry]]></name>
@@ -37,7 +37,7 @@
 <blockquote><p>&lt;&lt;ダウンロードフォルダ>>/oauth/android/SampleApp
 を指定します。</p></blockquote>
 
-<p>{% include_img  &#8220;/images/post/1.png&#8221; %}</p>
+<p>{% include_img  &#8220;http://superdry.github.com/images/post/1.png&#8221; %}</p>
 
 <p>最後に、OAuthのライブラリをダウンロードします。このサンプルアプリケーションでは、leelooのライブラリを使用します。</p>
 
