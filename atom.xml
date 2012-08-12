@@ -4,7 +4,7 @@
   <title><![CDATA[superdry.github.com]]></title>
   <link href="http://superdry.github.com/atom.xml" rel="self"/>
   <link href="http://superdry.github.com/"/>
-  <updated>2012-08-10T15:09:42+09:00</updated>
+  <updated>2012-08-12T21:11:15+09:00</updated>
   <id>http://superdry.github.com/</id>
   <author>
     <name><![CDATA[Superdry]]></name>
@@ -12,5 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[tab APIを使ったAndroidサンプルアプリ(1)]]></title>
+    <link href="http://superdry.github.com/blog/2012/08/12/tab-api-sample-apps-for-android/"/>
+    <updated>2012-08-12T20:59:00+09:00</updated>
+    <id>http://superdry.github.com/blog/2012/08/12/tab-api-sample-apps-for-android</id>
+    <content type="html"><![CDATA[<p>今回はAndroid用のサンプルアプリケーションを紹介しようと思います。開発作業の基本的な流れはWEBやiPhoneアプリケーションと変わりませんので、<a href="http://jyukon.blogspot.jp/2012/08/tab-api.html">tab APIの紹介エントリ</a>も合わせて見てください。</p>
+
+<h2>STEP1 アプリケーションを登録してクライアントIDを取る</h2>
+
+<p>基本的には、<a href="http://jyukon.blogspot.jp/2012/08/tab-apiios.html">iOSの場合</a>とほぼ同じように<a href="https://tab.do/clients">tabの開発者用サイト</a>から入手してください。</p>
+
+<h2>STEP2 アプリケーションを開発する</h2>
+
+<p>大まかな流れは<a href="https://github.com/tonchidot/tab-samples/tree/master/oauth2/android">README</a>に書いてあるのでそちらを見てください。</p>
+
+<h3>開発環境を準備する</h3>
+
+<p>まずは、Androidの開発環境を準備してください。開発環境の準備方法は、<a href="http://developer.android.com/sdk/installing/index.html">Androidの公式サイト</a>を参照してください。</p>
+
+<p>また、Android用のサンプルアプリケーションをGithubで公開しています。これをダウンロードし、Eclipseでプロジェクトフォルダをインポートしてください。具体的には、Eclipseのメニューバーより、[File] - [New] - [Other] - [Android Project from Existing Code] を選択し、</p>
+
+<blockquote><p>&lt;&lt;ダウンロードフォルダ>>/oauth/android/SampleApp
+を指定します。</p></blockquote>
+]]></content>
+  </entry>
   
 </feed>
